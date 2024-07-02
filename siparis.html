@@ -1,0 +1,12 @@
+<tr class="hover:bg-green-200 transition-all duration-100 relative">
+    <td><input type="checkbox" id="<?php echo $i; ?>" class="custom-checkbox ml-2" name="active[]" value="<?php echo $value['siparis_no']?>"></td>
+    <td class="text-center text-gray-500 hover:text-gray-700 transition-all duration-100 " onclick="infoOpen(info<?php echo $i; ?>)"><i class="fa-solid fa-circle-info"></i></td>
+    <td class="text-center whitespace-nowrap overflow-hidden  w-10" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['siparis_no']?></td>
+    <td class="text-center whitespace-nowrap overflow-hidden  w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['pazaryeri_kargo']?></td>
+    <!-- <td class="text-center whitespace-nowrap overflow-hidden  w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['mail']?></td> -->
+    <td class="text-center whitespace-nowrap overflow-hidden  w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['tarih']?></td>
+    <td class="text-center whitespace-nowrap  overflow-hidden w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['zaman']?></td>
+    <td class="text-center whitespace-nowrap  overflow-hidden w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['teslim_alici']?></td>
+    <td class="text-center whitespace-nowrap overflow-hidden  w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['teslim_siparis_ili']?></td>
+    <td class="text-center whitespace-nowrap  overflow-hidden w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['teslim_tel']?></td>
+</tr>
