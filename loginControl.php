@@ -38,6 +38,7 @@ if($kullanici_adi != "" && $pass != "" && $website != ""){
     elseif($response["message"][0]["text"][0] == "Geçersiz kullanıcı adı veya şifre!" )
     {
         echo "Geçersiz kullanıcı adı veya şifre!";
+        echo "<a href='login.php'>Tekrar Dene</a>";
     }
     if(@$_SESSION["kullanici_adi"] != "" && @$_SESSION["pass"] != ""&&  $_SESSION["token"] != ""){
         header("Location:index.php");
