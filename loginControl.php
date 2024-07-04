@@ -33,6 +33,7 @@ if($kullanici_adi != "" && $pass != "" && $website != ""){
         $_SESSION["token"] = $response["data"][0]["token"];
         $_SESSION["kullanici_adi"] = $kullanici_adi;
         $_SESSION["pass"] = $pass;
+        $_SESSION["webSite"] = $website;
 
     }
     elseif($response["message"][0]["text"][0] == "Geçersiz kullanıcı adı veya şifre!" )
