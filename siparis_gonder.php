@@ -91,7 +91,7 @@ if(isset($veri)) {
             $urun_array[$i]['ProductCode'] = $urun["urunkodu"];
             $urun_array[$i]['Quantity'] = $urun["miktar"];
             $urun_array[$i]['VariantType1'] = $Type[0];
-            $urun_array[$i]['VariantType2'] = $Type[1];
+            @$urun_array[$i]['VariantType2'] = $Type[1];
             $urun_array[$i]['SubProductCode'] = $urun["urunkodu"];
             $i++;
 
