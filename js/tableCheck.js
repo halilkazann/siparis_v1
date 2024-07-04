@@ -3,7 +3,7 @@ function toggleCheckbox(id) {
     checkbox.checked = !checkbox.checked;
   }
   
-  let checkbox = document.getElementsByName('siparis[]')
+  let checkbox = document.getElementsByName('active[]')
   let topInput = document.getElementById('topInput')
 
 

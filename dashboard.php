@@ -24,13 +24,13 @@ $fullOrder->execute();
 $FullorderCount = $fullOrder->rowCount();
 
 
-$getOrder = $con->prepare("Select * From `order` LIMIT $start,$limit ");
+$getOrder = $con->prepare("Select * From `order`  order by durum DESC  LIMIT $start,$limit    ");
 $getOrder->execute();
 $orderCount = $getOrder->rowCount();
 $getOrdervalue = $getOrder->fetchAll(PDO::FETCH_ASSOC);
 $i = 1;
 
-if ($orderCount > 0) {
+if ($orderCount >= 0) {
    ?>
 
 <!doctype html>
@@ -68,6 +68,7 @@ if ($orderCount > 0) {
                 <th class="bg-gray-600 text-white"><input type="checkbox" id="topInput" class="custom-checkbox ml-2"></th>
                 <th class="bg-gray-600 text-white w-16 text-center">Detaylar</th>
                 <th class="bg-gray-600 text-white w-60">Sipariş No</th>
+                <th class="bg-gray-600 text-white w-40">Durum</th>
                 <th class="bg-gray-600 text-white w-40">PazarYeri Kargo</th>
                 <!-- <th class="bg-gray-600 text-white w-40">Mail</th> -->
                 <th class="bg-gray-600 text-white w-40">Tarih</th>
@@ -75,6 +76,7 @@ if ($orderCount > 0) {
                 <th class="bg-gray-600 text-white w-40">Teslim Alıcı</th>
                 <th class="bg-gray-600 text-white w-40">Teslim Sipariş İli</th>
                 <th class="bg-gray-600 text-white w-40">Teslim Tel</th>
+
             </tr>
             </thead>
             <tbody>
@@ -85,9 +87,10 @@ if ($orderCount > 0) {
 
         ?>
 <tr class="hover:bg-green-200 transition-all duration-100 relative">
-    <td><input type="checkbox" id="<?php echo $i; ?>" class="custom-checkbox ml-2" name="siparis[]" value="<?php echo $value['siparis_no']?>"></td>
+    <td><input type="checkbox" id="<?php echo $i; ?>" class="custom-checkbox ml-2" name="active[]" value="<?php echo $value['siparis_no']?>"></td>
     <td class="text-center text-gray-500 hover:text-gray-700 transition-all duration-100 " onclick="infoOpen(info<?php echo $i; ?>)"><i class="fa-solid fa-circle-info"></i></td>
     <td class="text-center whitespace-nowrap overflow-hidden  w-10" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['siparis_no']?></td>
+    <td class="text-center whitespace-nowrap overflow-hidden  w-10" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['durum']?></td>
     <td class="text-center whitespace-nowrap overflow-hidden  w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['pazaryeri_kargo']?></td>
     <!-- <td class="text-center whitespace-nowrap overflow-hidden  w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['mail']?></td> -->
     <td class="text-center whitespace-nowrap overflow-hidden  w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['tarih']?></td>
@@ -160,11 +163,11 @@ if ($orderCount > 0) {
 </div>
             <?php
 
-echo $FullorderCount . "<br>";
-echo $limit . "<br>";
-echo $page . "<br>";
-$sayfa = ceil($FullorderCount / $limit);
-echo $sayfa;
+//echo $FullorderCount . "<br>";
+//echo $limit . "<br>";
+//echo $page . "<br>";
+//$sayfa = ceil($FullorderCount / $limit);
+//echo $sayfa;
 
 
 if (!empty($page)) {
