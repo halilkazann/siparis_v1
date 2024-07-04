@@ -1,7 +1,7 @@
 <?php
 require_once "baglan.php";
 
-$veri = $_GET["active"];
+$veri = $_GET["siparis"];
 
 
 
@@ -11,14 +11,18 @@ foreach ($veri as $value){
     $orderCount = $getOrder->rowCount();
     $getOrdervalue[] = $getOrder->fetchAll(PDO::FETCH_ASSOC);
 
-    $siparis_kodu = $getOrdervalue[0][0]["siparis_no"];
+    $orderProduct[] = $getOrdervalue[0][0]["siparis_no"];
 
-    $getProduct = $con->prepare("Select * From order_product where siparis_kodu=?");
-    $getProduct->execute([$siparis_kodu]);
-    $productCount = $getProduct->rowCount();
-    $getProductValue[] = $getProduct->fetchAll(PDO::FETCH_ASSOC);
+
 }
+echo "<pre>";
+print_r($orderProduct);
 
+
+$getProduct = $con->prepare("Select * From order_product where siparis_kodu=?");
+$getProduct->execute([$siparis_kodu]);
+$productCount = $getProduct->rowCount();
+$getProductValue = $getProduct->fetchAll(PDO::FETCH_ASSOC);
 
 echo "<pre>";
 
