@@ -1,8 +1,10 @@
 <?php
 session_start();
+ini_set('max_execution_time', 0);
+ini_set('max_input_vars ', 3000);
 require_once "baglan.php";
 
-@$veri = $_GET["active"];
+@$veri = $_POST["active"];
 @$webSite = $_SESSION["webSite"];
 $url = "http://$webSite/rest1/order2/createOrders";
 

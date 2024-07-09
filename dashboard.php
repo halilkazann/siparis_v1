@@ -1,5 +1,5 @@
 <?php
-
+ini_set('max_execution_time', 0);
 require_once "baglan.php";
 @$page = $_GET["page"];
 @$limit = $_GET["limit"];
@@ -10,7 +10,10 @@ if (empty($page)) {
 if (empty($limit)) {
     $limit = 25;
 }
-if ($limit == 100 || $limit == 50 || $limit == 25) {
+if($limit == "all"){
+    $limit = 9999;
+}
+if ($limit == 100 || $limit == 50 || $limit == 25 || $limit =9999) {
 
 } else {
     $limit = 25;
@@ -24,7 +27,7 @@ $fullOrder->execute();
 $FullorderCount = $fullOrder->rowCount();
 
 
-$getOrder = $con->prepare("Select * From `order`  order by durum DESC  LIMIT $start,$limit    ");
+$getOrder = $con->prepare("Select * From `order`  order by durum ASC  LIMIT $start,$limit    ");
 $getOrder->execute();
 $orderCount = $getOrder->rowCount();
 $getOrdervalue = $getOrder->fetchAll(PDO::FETCH_ASSOC);
@@ -53,22 +56,20 @@ if ($orderCount >= 0) {
 
 
 <div class="flex justify-center mt-5">
-    <form method="get" action="siparis_gonder.php" class="mt-5 ">
+    <form method="post" action="siparis_gonder.php" class="mt-5 ">
         <div class="flex items-center space-x-3 my-3 ">
-            <a href="toplusiparisgonder.php" class="p-2 bg-blue-400 font-semibold text-md rounded-sm h-10 items-center text-white hover:bg-gray-600 transition-all duration-100" >toplu sipariş gönder</a>
             <button name="tekilsiparis" value="1" type="submit" class="p-2 bg-blue-400 font-semibold text-md rounded-sm h-10 items-center text-white hover:bg-gray-600 transition-all duration-100">seçili sipariş gönder</button>
-            <a class="p-2 bg-blue-400 font-semibold text-md rounded-sm h-10 items-center text-white hover:bg-gray-600 transition-all duration-100">toplu ürün oluştur</a>
-            <a class="p-2 bg-blue-400 font-semibold text-md rounded-sm h-10 items-center text-white hover:bg-gray-600 transition-all duration-100">ürün oluştur</a>
+            <a href="function/getOrder.php" class="p-2 bg-blue-400 font-semibold text-md rounded-sm h-10 items-center text-white hover:bg-gray-600 transition-all duration-100">T-Soft'ta var mı?</a>
             <input class="h-10 p-2 outline-none text-gray-600 w-72 rounded-sm" type="text" placeholder="Ara">
             <a class="p-2 bg-blue-400 font-semibold text-md rounded-sm h-10 items-center text-white hover:bg-gray-600 transition-all duration-100">filtrele</a>
         </div>
-        <table class="table-auto">
-            <thead>
-            <tr class="h-9">
+        <table class="table-auto ">
+            <thead class="sticky top-0 z-10">
+            <tr class="h-9" >
                 <th class="bg-gray-600 text-white"><input type="checkbox" id="topInput" class="custom-checkbox ml-2"></th>
                 <th class="bg-gray-600 text-white w-16 text-center">Detaylar</th>
                 <th class="bg-gray-600 text-white w-60">Sipariş No</th>
-                <th class="bg-gray-600 text-white w-40">Durum</th>
+                <th class="bg-gray-600 text-white w-40">Aktarıldı mı?</th>
                 <th class="bg-gray-600 text-white w-40">PazarYeri Kargo</th>
                 <!-- <th class="bg-gray-600 text-white w-40">Mail</th> -->
                 <th class="bg-gray-600 text-white w-40">Tarih</th>
@@ -90,7 +91,7 @@ if ($orderCount >= 0) {
     <td><input type="checkbox" id="<?php echo $i; ?>" class="custom-checkbox ml-2" name="active[]" value="<?php echo $value['siparis_no']?>"></td>
     <td class="text-center text-gray-500 hover:text-gray-700 transition-all duration-100 " onclick="infoOpen(info<?php echo $i; ?>)"><i class="fa-solid fa-circle-info"></i></td>
     <td class="text-center whitespace-nowrap overflow-hidden  w-10" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['siparis_no']?></td>
-    <td class="text-center whitespace-nowrap overflow-hidden  w-10" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['durum']?></td>
+    <td class="text-center  whitespace-nowrap overflow-hidden  w-100 flex items-center" style="justify-content: center;"  onclick="toggleCheckbox(<?php echo $i; ?>)"><?php if ($value['durum'] == 1) { echo "<i class='fa-solid fa-check text-green-600'></i>"; } else{ echo "<i class='fa-solid fa-xmark text-red-600'></i>"; }?></td>
     <td class="text-center whitespace-nowrap overflow-hidden  w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['pazaryeri_kargo']?></td>
     <!-- <td class="text-center whitespace-nowrap overflow-hidden  w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['mail']?></td> -->
     <td class="text-center whitespace-nowrap overflow-hidden  w-40" onclick="toggleCheckbox(<?php echo $i; ?>)"><?php echo $value['tarih']?></td>
